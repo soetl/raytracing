@@ -1,11 +1,11 @@
 use std::{ops::Range, sync::Arc};
 
-use crate::{material::Material, point::Point3, ray::Ray, utils::RangeExt};
+use crate::{material::Material, point::Point3, ray::Ray, utils::RangeExt, vec::Vec3};
 
 use super::{HitRecord, Hittable};
 
 pub struct Sphere {
-    center: Point3,
+    center: Ray,
     radius: f32,
     material: Arc<dyn Material>,
 }
@@ -13,16 +13,22 @@ pub struct Sphere {
 impl Sphere {
     pub fn new(center: Point3, radius: f32, material: Arc<dyn Material>) -> Sphere {
         Sphere {
-            center,
+            center: Ray::new(center, Vec3::ZERO),
             radius,
             material,
         }
+    }
+
+    pub fn with_destination(mut self, destination: Point3) -> Self {
+        self.center = Ray::new(self.center.origin(), destination - self.center.origin());
+        self
     }
 }
 
 impl Hittable for Sphere {
     fn hit(&self, ray: &Ray, ray_t: Range<f32>) -> Option<HitRecord> {
-        let oc = self.center - ray.origin;
+        let current_center = self.center.at(ray.time());
+        let oc = current_center - ray.origin;
         let a = ray.direction.length_squared();
         let h = ray.direction.dot(oc);
         let c = oc.length_squared() - self.radius * self.radius;
@@ -46,7 +52,7 @@ impl Hittable for Sphere {
         let hit_rec = HitRecord::new(
             ray.direction,
             point,
-            ((point - self.center) / self.radius).normalize(),
+            (point - current_center) / self.radius,
             root,
             self.material.clone(),
         );

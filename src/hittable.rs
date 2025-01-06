@@ -22,7 +22,11 @@ impl HitRecord {
         material: Arc<dyn Material>,
     ) -> HitRecord {
         let front_face = direction.dot(normal) < 0.0;
-        let normal = if front_face { normal } else { -normal };
+        let normal = if front_face {
+            normal.normalize()
+        } else {
+            -normal.normalize()
+        };
 
         HitRecord {
             point,

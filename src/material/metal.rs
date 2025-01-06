@@ -24,7 +24,7 @@ impl Material for Metal {
     fn scatter(&self, ray: &Ray, hit: &HitRecord) -> Option<(Ray, Color<Linear>)> {
         let reflected =
             ray.direction().reflect(hit.normal).normalize() + Vec3::random_unit() * self.fuzz;
-        let scattered = Ray::new(hit.point, reflected);
+        let scattered = Ray::new(hit.point, reflected).with_time(ray.time());
         let attenuation = self.albedo;
         if scattered.direction().dot(hit.normal) > 0.0 {
             Some((scattered, attenuation))

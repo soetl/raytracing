@@ -18,15 +18,15 @@ impl Lambertian {
 }
 
 impl Material for Lambertian {
-    fn scatter(&self, _ray: &Ray, hit: &HitRecord) -> Option<(Ray, Color<Linear>)> {
-        let mut scatter_direction = hit.normal.clone() + Vec3::random_unit();
+    fn scatter(&self, ray: &Ray, hit: &HitRecord) -> Option<(Ray, Color<Linear>)> {
+        let mut scatter_direction = hit.normal + Vec3::random_unit();
 
         if scatter_direction.near_zero() {
-            scatter_direction = hit.normal.clone();
+            scatter_direction = hit.normal;
         }
 
-        let scattered = Ray::new(hit.point.clone(), scatter_direction);
-        let attenuation = self.albedo.clone();
+        let scattered = Ray::new(hit.point, scatter_direction).with_time(ray.time());
+        let attenuation = self.albedo;
         Some((scattered, attenuation))
     }
 }
