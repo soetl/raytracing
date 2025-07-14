@@ -92,14 +92,24 @@ impl Camera {
             .par_enumerate_pixels_mut()
             .progress()
             .for_each(|(x, y, pixel)| {
-                let mut color: Color<Linear> =
-                    (0..self.samples_per_pixel).fold(Color::from(Vec3::ZERO), |acc, _| {
+                let color: Vec<Color<Linear>> = (0..self.samples_per_pixel)
+                    .map(|_| {
                         let ray = self.get_ray(x, y);
-                        Color::from(acc.v + Self::ray_color(&ray, world, self.max_depth).v)
-                    });
+                        Self::ray_color(&ray, world, self.max_depth)
+                    })
+                    .filter(|color| {
+                        color.v.x.is_finite() && color.v.y.is_finite() && color.v.z.is_finite()
+                    })
+                    .collect();
 
-                color.v *= 1.0 / self.samples_per_pixel as f32;
-                *pixel = color.to_srgb().into();
+                let final_color = if color.is_empty() {
+                    Color::from(Vec3::new(1.0, 0.0, 1.0))
+                } else {
+                    let sum = color.iter().fold(Vec3::ZERO, |acc, color| acc + color.v);
+                    Color::from(sum / color.len() as f32)
+                };
+
+                *pixel = final_color.to_srgb().into();
             });
 
         output
@@ -143,7 +153,7 @@ impl Camera {
     }
 
     fn defocus_disk_sample(&self) -> Point3 {
-        let p = Vec3::random_in_unit_disk();
+        let p = Vec3::random_unit_disk();
         self.look_from + (p.x * self.defocus_disk_u) + (p.y * self.defocus_disk_v)
     }
 }
