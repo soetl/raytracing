@@ -4,10 +4,10 @@ pub mod metal;
 
 use crate::{
     color::{Color, Linear},
-    hittable::HitRecord,
+    hittable::Hit,
     ray::Ray,
 };
 
 pub trait Material: Send + Sync + std::fmt::Debug {
-    fn scatter(&self, ray: &Ray, hit: &HitRecord) -> Option<(Ray, Color<Linear>)>;
+    fn scatter(&self, ray: &Ray, hit: &Hit) -> Option<(Ray, Color<Linear>)>;
 }

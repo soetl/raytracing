@@ -1,5 +1,5 @@
 use crate::{
-    hittable::HitRecord,
+    hittable::Hit,
     ray::Ray,
     vec::{Vec3, VecExt},
 };
@@ -18,7 +18,7 @@ impl Lambertian {
 }
 
 impl Material for Lambertian {
-    fn scatter(&self, ray: &Ray, hit: &HitRecord) -> Option<(Ray, Color<Linear>)> {
+    fn scatter(&self, ray: &Ray, hit: &Hit) -> Option<(Ray, Color<Linear>)> {
         let mut scatter_direction = hit.normal + Vec3::random_unit();
 
         if scatter_direction.near_zero() {
