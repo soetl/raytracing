@@ -143,7 +143,7 @@ impl Camera {
     }
 
     fn defocus_disk_sample(&self) -> Point3 {
-        let p = Vec3::random_in_unit_disk();
+        let p = Vec3::random_unit_disk();
         self.look_from + (p.x * self.defocus_disk_u) + (p.y * self.defocus_disk_v)
     }
 }
