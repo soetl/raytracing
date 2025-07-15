@@ -1,7 +1,10 @@
 pub mod aabb;
+pub mod bvh_node;
 pub mod sphere;
 
 use std::{ops::Range, sync::Arc};
+
+use aabb::Aabb;
 
 use crate::{material::Material, point::Point3, ray::Ray, vec::Vec3};
 
@@ -43,8 +46,8 @@ impl HitRecord {
         HitRecord {
             hit: HitType::Physical {
                 hit: Hit {
-            point,
-            normal,
+                    point,
+                    normal,
                     front_face,
                     material,
                 },
