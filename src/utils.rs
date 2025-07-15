@@ -1,7 +1,9 @@
 use rand::Rng;
 use std::ops::Range;
 
-pub const INFINITY: f32 = f32::INFINITY;
+use crate::color::{Color, Linear};
+
+pub const DEBUG_COLOR: Color<Linear> = Color::new(1.0, 0.0, 1.0);
 
 pub trait RangeExt<T> {
     fn surrounds(&self, value: &T) -> bool;
