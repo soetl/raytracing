@@ -2,25 +2,45 @@ use std::{ops::Range, sync::Arc};
 
 use crate::{material::Material, point::Point3, ray::Ray, utils::RangeExt, vec::Vec3};
 
-use super::{HitRecord, Hittable};
+use super::{aabb::Aabb, HitRecord, Hittable};
 
 pub struct Sphere {
     center: Ray,
     radius: f32,
     material: Arc<dyn Material>,
+    aabb: Aabb,
 }
 
 impl Sphere {
     pub fn new(center: Point3, radius: f32, material: Arc<dyn Material>) -> Sphere {
+        let center = Ray::new(center, Vec3::ZERO);
+        let aabb = Aabb::new(center.origin(), Vec3::splat(radius));
+
         Sphere {
-            center: Ray::new(center, Vec3::ZERO),
+            center,
             radius,
             material,
+            aabb,
         }
     }
 
     pub fn with_destination(mut self, destination: Point3) -> Self {
         self.center = Ray::new(self.center.origin(), destination - self.center.origin());
+
+        self.aabb = {
+            let half_extents = Vec3::new(self.radius, self.radius, self.radius);
+            let boundary_box1 = Aabb::from((
+                self.center.at(0.0) - half_extents,
+                self.center.at(0.0) + half_extents,
+            ));
+            let boundary_box2 = Aabb::from((
+                self.center.at(1.0) - half_extents,
+                self.center.at(1.0) + half_extents,
+            ));
+
+            Aabb::from((boundary_box1, boundary_box2))
+        };
+
         self
     }
 }
@@ -58,5 +78,9 @@ impl Hittable for Sphere {
         );
 
         Some(hit_rec)
+    }
+
+    fn aabb(&self) -> Aabb {
+        self.aabb
     }
 }
