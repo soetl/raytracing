@@ -1,6 +1,6 @@
 use crate::{
     color::{Color, Linear},
-    point::Point3,
+    math::Point3,
     texture::Texture,
 };
 

@@ -1,6 +1,9 @@
-use super::{aabb::Aabb, HitRecord, Hittable};
-use crate::ray::Ray;
 use std::{ops::Range, sync::Arc};
+
+use crate::{
+    logical::Aabb,
+    math::{HitRecord, Hittable, Ray},
+};
 
 #[derive(Clone)]
 struct NodeData {

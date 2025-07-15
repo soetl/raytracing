@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 use image::Rgb;
 
-use crate::{utils::RangeExt, vec::Vec3};
+use crate::{math::Vec3, utils::RangeExt};
 
 pub trait ColorSpace: Copy + Clone + std::fmt::Debug {}
 

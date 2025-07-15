@@ -2,8 +2,8 @@ use std::sync::Arc;
 
 use crate::{
     color::{Color, Linear},
-    point::Point3,
-    texture::{color::SolidColor, Texture},
+    math::Point3,
+    texture::{SolidColor, Texture},
 };
 
 #[derive(Debug)]

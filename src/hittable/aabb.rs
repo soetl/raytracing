@@ -1,6 +1,4 @@
-use crate::{point::Point3, ray::Ray, vec::Vec3};
-
-use super::{HitRecord, HitType, Hittable};
+use crate::math::{HitRecord, HitType, Hittable, Point3, Ray, Vec3};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Aabb {

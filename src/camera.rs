@@ -4,11 +4,8 @@ use rayon::prelude::*;
 
 use crate::{
     color::{Color, Linear},
-    hittable::{HitType, Hittable},
-    point::Point3,
-    ray::Ray,
+    math::{HitType, Hittable, Point3, Ray, Vec3, VecExt},
     utils::{Random, DEBUG_COLOR},
-    vec::{Vec3, VecExt},
 };
 
 pub struct Camera {

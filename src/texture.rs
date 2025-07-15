@@ -1,6 +1,8 @@
-pub mod checkers;
-pub mod color;
-pub mod image;
+mod checkers;
+mod color;
+mod image;
+
+pub use crate::texture::{checkers::CheckersTexture, color::SolidColor, image::ImageTexture};
 
 use std::fmt::Debug;
 

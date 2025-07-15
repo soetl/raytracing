@@ -1,8 +1,11 @@
 use std::{ops::Range, sync::Arc};
 
-use crate::{material::Material, point::Point3, ray::Ray, utils::RangeExt, vec::Vec3};
-
-use super::{aabb::Aabb, HitRecord, Hittable};
+use crate::{
+    logical::Aabb,
+    material::Material,
+    math::{HitRecord, Hittable, Point3, Ray, Vec3},
+    utils::RangeExt,
+};
 
 pub struct Sphere {
     center: Ray,

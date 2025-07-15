@@ -1,11 +1,8 @@
 use crate::{
     color::{Color, Linear},
-    hittable::Hit,
-    ray::Ray,
-    vec::{Vec3, VecExt},
+    material::Material,
+    math::{Hit, Ray, Vec3, VecExt},
 };
-
-use super::Material;
 
 #[derive(Clone, Debug)]
 pub struct Metal {

@@ -1,6 +1,9 @@
-use crate::{color::Color, hittable::Hit, ray::Ray, utils::Random, vec::Vec3};
-
-use super::{Linear, Material};
+use crate::{
+    color::{Color, Linear},
+    material::Material,
+    math::{Hit, Ray, Vec3},
+    utils::Random,
+};
 
 #[derive(Clone, Debug)]
 pub struct Dielectric {
