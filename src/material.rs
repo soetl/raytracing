@@ -1,11 +1,12 @@
-pub mod dielectric;
-pub mod lambertian;
-pub mod metal;
+mod dielectric;
+mod lambertian;
+mod metal;
+
+pub use {dielectric::Dielectric, lambertian::Lambertian, metal::Metal};
 
 use crate::{
     color::{Color, Linear},
-    hittable::Hit,
-    ray::Ray,
+    math::{Hit, Ray},
 };
 
 pub trait Material: Send + Sync + std::fmt::Debug {

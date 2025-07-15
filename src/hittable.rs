@@ -1,10 +1,22 @@
-pub mod aabb;
-pub mod bvh_node;
-pub mod sphere;
+mod aabb;
+mod bvh_node;
+mod sphere;
+
+pub mod primitives {
+    pub use crate::hittable::sphere::Sphere;
+}
+
+pub mod logical {
+    pub use crate::hittable::{aabb::Aabb, bvh_node::BvhNode};
+}
 
 use std::{ops::Range, sync::Arc};
 
-use crate::{hittable::aabb::Aabb, material::Material, point::Point3, ray::Ray, vec::Vec3};
+use crate::{
+    logical::Aabb,
+    material::Material,
+    math::{Point3, Ray, Vec3},
+};
 
 #[derive(Debug, Clone)]
 pub enum HitType {

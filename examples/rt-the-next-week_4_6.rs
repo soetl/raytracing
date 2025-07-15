@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use ray_tracing::{prelude::*, texture::image::ImageTexture};
+use ray_tracing::prelude::*;
 
 fn main() {
     let mut world: Vec<Arc<dyn Hittable>> = Vec::new();

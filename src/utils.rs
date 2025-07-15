@@ -1,5 +1,6 @@
-use rand::Rng;
 use std::ops::Range;
+
+use rand::Rng;
 
 use crate::color::{Color, Linear};
 

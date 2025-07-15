@@ -1,13 +1,11 @@
 use std::sync::Arc;
 
 use crate::{
-    hittable::Hit,
-    ray::Ray,
-    texture::{color::SolidColor, Texture},
-    vec::{Vec3, VecExt},
+    color::{Color, Linear},
+    material::Material,
+    math::{Hit, Ray, Vec3, VecExt},
+    texture::{SolidColor, Texture},
 };
-
-use super::{Color, Linear, Material};
 
 #[derive(Clone, Debug)]
 pub struct Lambertian {

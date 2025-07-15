@@ -1,30 +1,48 @@
-use std::path::PathBuf;
-
-use camera::CameraConfig;
-use hittable::Hittable;
-use image::ImageResult;
-
 pub mod camera;
 pub mod color;
-pub mod hittable;
+mod hittable;
 pub mod material;
-pub mod point;
-pub mod ray;
+mod point;
+mod ray;
 pub mod texture;
 pub mod utils;
-pub mod vec;
+mod vec;
 
 pub mod prelude {
     pub use crate::{
-        camera::CameraConfig,
-        color::Color,
-        hittable::{bvh_node::BvhNode, sphere::Sphere, Hittable},
-        material::{dielectric::Dielectric, lambertian::Lambertian, metal::Metal, Material},
-        point::Point3,
+        camera::{Camera, CameraConfig},
+        color::{Color, Linear, Srgb},
+        logical::BvhNode,
+        material::{Dielectric, Lambertian, Material, Metal},
+        math::{Hittable, Point3, Vec3, VecExt},
+        primitives::Sphere,
         render,
-        vec::Vec3,
+        texture::{CheckersTexture, ImageTexture, SolidColor},
     };
 }
+
+pub mod math {
+    pub use crate::{
+        hittable::{Hit, HitRecord, HitType, Hittable},
+        point::Point3,
+        ray::Ray,
+        vec::{Vec3, VecExt},
+    };
+}
+
+pub mod primitives {
+    pub use crate::hittable::primitives::Sphere;
+}
+
+pub mod logical {
+    pub use crate::hittable::logical::{Aabb, BvhNode};
+}
+
+use std::path::PathBuf;
+
+use image::ImageResult;
+
+use crate::{camera::CameraConfig, math::Hittable};
 
 pub fn render(
     world: &impl Hittable,
