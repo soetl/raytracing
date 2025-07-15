@@ -7,6 +7,7 @@ edition = "2021"
 glam = { version = "0.30.4", features = ["fast-math", "core-simd"] }
 image = { version = "0.25.6", default-features = false, features = [
     "png",
+    "jpeg",
     "rayon",
 ] }
 indicatif = { version = "0.18.0", features = ["rayon"] }
