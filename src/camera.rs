@@ -4,7 +4,7 @@ use rayon::prelude::*;
 
 use crate::{
     color::{Color, Linear},
-    hittable::Hittable,
+    hittable::{HitType, Hittable},
     point::Point3,
     ray::Ray,
     utils::{Random, INFINITY},
@@ -121,6 +121,10 @@ impl Camera {
         }
 
         if let Some(hit) = world.hit(ray, 0.001..INFINITY) {
+            let hit = match hit.hit {
+                HitType::Physical { hit } => hit,
+                _ => return Color::from(Vec3::ZERO),
+            };
             let Some((scattered, attenuation)) = hit.material.scatter(ray, &hit) else {
                 return Color::from(Vec3::ZERO);
             };

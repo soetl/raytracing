@@ -4,13 +4,24 @@ use std::{ops::Range, sync::Arc};
 
 use crate::{material::Material, point::Point3, ray::Ray, vec::Vec3};
 
-#[derive(Debug)]
-pub struct HitRecord {
+#[derive(Debug, Clone)]
+pub enum HitType {
+    Physical { hit: Hit },
+    Logical,
+}
+
+#[derive(Debug, Clone)]
+pub struct Hit {
     pub point: Point3,
     pub normal: Vec3,
-    pub t: f32,
     pub front_face: bool,
     pub material: Arc<dyn Material>,
+}
+
+#[derive(Debug)]
+pub struct HitRecord {
+    pub hit: HitType,
+    pub t: f32,
 }
 
 impl HitRecord {
@@ -29,11 +40,15 @@ impl HitRecord {
         };
 
         HitRecord {
+            hit: HitType::Physical {
+                hit: Hit {
             point,
             normal,
+                    front_face,
+                    material,
+                },
+            },
             t,
-            front_face,
-            material,
         }
     }
 }

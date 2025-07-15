@@ -1,4 +1,4 @@
-use crate::{color::Color, hittable::HitRecord, ray::Ray, utils::Random, vec::Vec3};
+use crate::{color::Color, hittable::Hit, ray::Ray, utils::Random, vec::Vec3};
 
 use super::{Linear, Material};
 
@@ -20,7 +20,7 @@ impl Dielectric {
 }
 
 impl Material for Dielectric {
-    fn scatter(&self, ray: &Ray, hit: &HitRecord) -> Option<(Ray, Color<Linear>)> {
+    fn scatter(&self, ray: &Ray, hit: &Hit) -> Option<(Ray, Color<Linear>)> {
         let ri = if hit.front_face {
             1.0 / self.refraction_index
         } else {

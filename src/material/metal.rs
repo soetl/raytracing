@@ -1,6 +1,6 @@
 use crate::{
     color::{Color, Linear},
-    hittable::HitRecord,
+    hittable::Hit,
     ray::Ray,
     vec::{Vec3, VecExt},
 };
@@ -21,7 +21,7 @@ impl Metal {
 }
 
 impl Material for Metal {
-    fn scatter(&self, ray: &Ray, hit: &HitRecord) -> Option<(Ray, Color<Linear>)> {
+    fn scatter(&self, ray: &Ray, hit: &Hit) -> Option<(Ray, Color<Linear>)> {
         let reflected =
             ray.direction().reflect(hit.normal).normalize() + Vec3::random_unit() * self.fuzz;
         let scattered = Ray::new(hit.point, reflected).with_time(ray.time());
