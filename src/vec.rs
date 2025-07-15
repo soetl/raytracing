@@ -18,10 +18,12 @@ impl Random<f32> for Vec3 {
     }
 }
 
-pub(crate) trait VecExt {
+pub trait VecExt {
     fn near_zero(&self) -> bool;
     fn random_unit() -> Vec3;
-    fn random_in_unit_disk() -> Vec3;
+    fn random_unit_disk() -> Vec3;
+    fn random_hemisphere(normal: &Vec3) -> Vec3;
+    fn random_cosine_direction() -> Vec3;
 }
 
 impl VecExt for Vec3 {
@@ -40,7 +42,7 @@ impl VecExt for Vec3 {
         }
     }
 
-    fn random_in_unit_disk() -> Vec3 {
+    fn random_unit_disk() -> Vec3 {
         loop {
             let p = Vec3::new(
                 f32::random_range(&(-1.0..1.0)),
@@ -51,5 +53,26 @@ impl VecExt for Vec3 {
                 return p;
             }
         }
+    }
+
+    fn random_hemisphere(normal: &Vec3) -> Vec3 {
+        let in_unit_sphere = Self::random_unit();
+        if in_unit_sphere.dot(*normal) > 0.0 {
+            in_unit_sphere
+        } else {
+            -in_unit_sphere
+        }
+    }
+
+    fn random_cosine_direction() -> Vec3 {
+        let r1 = f32::random();
+        let r2 = f32::random();
+        let z = (1.0f32 - r2).sqrt();
+
+        let phi = 2.0 * std::f32::consts::PI * r1;
+        let x = phi.cos() * r2.sqrt();
+        let y = phi.sin() * r2.sqrt();
+
+        Vec3::new(x, y, z)
     }
 }
