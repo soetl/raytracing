@@ -17,7 +17,7 @@ pub mod prelude {
     pub use crate::{
         camera::CameraConfig,
         color::Color,
-        hittable::{sphere::Sphere, Hittable, HittableList},
+        hittable::{bvh_node::BvhNode, sphere::Sphere, Hittable},
         material::{dielectric::Dielectric, lambertian::Lambertian, metal::Metal, Material},
         point::Point3,
         render,

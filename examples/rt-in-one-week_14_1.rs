@@ -3,10 +3,10 @@ use std::sync::Arc;
 use ray_tracing::{prelude::*, utils::Random};
 
 fn main() {
-    let mut world = HittableList::new();
+    let mut world: Vec<Arc<dyn Hittable>> = Vec::new();
 
     let ground_material = Lambertian::new(Color::new(0.5, 0.5, 0.5));
-    world.push(Box::new(Sphere::new(
+    world.push(Arc::new(Sphere::new(
         Point3::new(0.0, -1000.0, 0.0),
         1000.0,
         Arc::new(ground_material),
@@ -35,34 +35,36 @@ fn main() {
                     _ => Arc::new(Dielectric::new(1.5)),
                 };
 
-                world.push(Box::new(Sphere::new(center, 0.2, sphere_material)));
+                world.push(Arc::new(Sphere::new(center, 0.2, sphere_material)));
             }
         });
     });
 
     let material_1 = Dielectric::new(1.5);
-    world.push(Box::new(Sphere::new(
+    world.push(Arc::new(Sphere::new(
         Point3::new(0.0, 1.0, 0.0),
         1.0,
         Arc::new(material_1),
     )));
 
     let material_2 = Lambertian::new(Color::new(0.4, 0.2, 0.1));
-    world.push(Box::new(Sphere::new(
+    world.push(Arc::new(Sphere::new(
         Point3::new(-4.0, 1.0, 0.0),
         1.0,
         Arc::new(material_2),
     )));
 
     let material_3 = Metal::new(Color::new(0.7, 0.6, 0.5), 0.0);
-    world.push(Box::new(Sphere::new(
+    world.push(Arc::new(Sphere::new(
         Point3::new(4.0, 1.0, 0.0),
         1.0,
         Arc::new(material_3),
     )));
 
+    let bvh = BvhNode::new(world);
+
     match render(
-        &world,
+        &bvh,
         "output/rt-in-one-week-14.1.png",
         &CameraConfig {
             vfov: 20.0,
