@@ -4,10 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-glam = { version = "0.29.2", features = ["fast-math", "core-simd"] }
-image = { version = "0.25.5", default-features = false, features = ["png", "rayon"] }
-indicatif = { version = "0.17.9", features = ["rayon"] }
-rand = "0.8.5"
+glam = { version = "0.30.4", features = ["fast-math", "core-simd"] }
+image = { version = "0.25.6", default-features = false, features = [
+    "png",
+    "rayon",
+] }
+indicatif = { version = "0.18.0", features = ["rayon"] }
+rand = "0.9.1"
 rayon = "1.10.0"
 
 [profile.release]
