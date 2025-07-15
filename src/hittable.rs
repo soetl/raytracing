@@ -1,3 +1,4 @@
+pub mod aabb;
 pub mod sphere;
 
 use std::{ops::Range, sync::Arc};
@@ -55,22 +56,5 @@ impl HitRecord {
 
 pub trait Hittable: Send + Sync {
     fn hit(&self, ray: &Ray, ray_t: Range<f32>) -> Option<HitRecord>;
-}
-
-pub type HittableList = Vec<Box<dyn Hittable>>;
-
-impl Hittable for HittableList {
-    fn hit(&self, ray: &Ray, ray_t: Range<f32>) -> Option<HitRecord> {
-        let mut closest_so_far = ray_t.end;
-        let mut hit_record = None;
-
-        for object in self {
-            if let Some(record) = object.hit(ray, ray_t.start..closest_so_far) {
-                closest_so_far = record.t;
-                hit_record = Some(record);
-            }
-        }
-
-        hit_record
-    }
+    fn aabb(&self) -> Aabb;
 }
