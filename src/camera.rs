@@ -7,7 +7,7 @@ use crate::{
     hittable::{HitType, Hittable},
     point::Point3,
     ray::Ray,
-    utils::{Random, INFINITY},
+    utils::{Random, DEBUG_COLOR},
     vec::{Vec3, VecExt},
 };
 
@@ -103,7 +103,7 @@ impl Camera {
                     .collect();
 
                 let final_color = if color.is_empty() {
-                    Color::from(Vec3::new(1.0, 0.0, 1.0))
+                    DEBUG_COLOR
                 } else {
                     let sum = color.iter().fold(Vec3::ZERO, |acc, color| acc + color.v);
                     Color::from(sum / color.len() as f32)
@@ -120,7 +120,7 @@ impl Camera {
             return Color::from(Vec3::ZERO);
         }
 
-        if let Some(hit) = world.hit(ray, 0.001..INFINITY) {
+        if let Some(hit) = world.hit(ray, 0.001..f32::INFINITY) {
             let hit = match hit.hit {
                 HitType::Physical { hit } => hit,
                 _ => return Color::from(Vec3::ZERO),

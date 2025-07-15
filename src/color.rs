@@ -13,7 +13,7 @@ pub struct Color<T: ColorSpace> {
 }
 
 impl<T: ColorSpace> Color<T> {
-    pub fn new(r: f32, g: f32, b: f32) -> Self {
+    pub const fn new(r: f32, g: f32, b: f32) -> Self {
         Color {
             v: Vec3::new(r, g, b),
             _color_space: std::marker::PhantomData,
