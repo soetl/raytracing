@@ -5,8 +5,8 @@ use ray_tracing::prelude::*;
 fn main() {
     let mut world: Vec<Arc<dyn Hittable>> = Vec::new();
 
-    let material_ground = Lambertian::new(Color::new(0.8, 0.8, 0.0));
-    let material_center = Lambertian::new(Color::new(0.1, 0.2, 0.5));
+    let material_ground = Lambertian::from(Color::new(0.8, 0.8, 0.0));
+    let material_center = Lambertian::from(Color::new(0.1, 0.2, 0.5));
     let material_left = Dielectric::new(1.00 / 1.33);
     let material_right = Metal::new(Color::new(0.8, 0.6, 0.2), 1.0);
 

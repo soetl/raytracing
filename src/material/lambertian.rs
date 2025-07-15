@@ -1,6 +1,9 @@
+use std::sync::Arc;
+
 use crate::{
     hittable::Hit,
     ray::Ray,
+    texture::{color::SolidColor, Texture},
     vec::{Vec3, VecExt},
 };
 
@@ -8,12 +11,12 @@ use super::{Color, Linear, Material};
 
 #[derive(Clone, Debug)]
 pub struct Lambertian {
-    albedo: Color<Linear>,
+    texture: Arc<dyn Texture>,
 }
 
 impl Lambertian {
-    pub fn new(albedo: Color<Linear>) -> Self {
-        Self { albedo }
+    pub fn new(texture: Arc<dyn Texture>) -> Self {
+        Self { texture }
     }
 }
 
@@ -26,7 +29,15 @@ impl Material for Lambertian {
         }
 
         let scattered = Ray::new(hit.point, scatter_direction).with_time(ray.time());
-        let attenuation = self.albedo;
+        let attenuation = self.texture.color(hit.u, hit.v, &hit.point);
         Some((scattered, attenuation))
+    }
+}
+
+impl From<Color<Linear>> for Lambertian {
+    fn from(color: Color<Linear>) -> Self {
+        Self {
+            texture: Arc::new(SolidColor::new(color)),
+        }
     }
 }

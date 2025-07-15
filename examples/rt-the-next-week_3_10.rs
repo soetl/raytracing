@@ -5,7 +5,7 @@ use ray_tracing::{prelude::*, utils::Random};
 fn main() {
     let mut world: Vec<Arc<dyn Hittable>> = Vec::new();
 
-    let ground_material = Lambertian::new(Color::new(0.5, 0.5, 0.5));
+    let ground_material = Lambertian::from(Color::new(0.5, 0.5, 0.5));
     world.push(Arc::new(Sphere::new(
         Point3::new(0.0, -1000.0, 0.0),
         1000.0,
@@ -28,7 +28,7 @@ fn main() {
                         let destination =
                             center + Vec3::new(0.0, f32::random_range(&(0.0..0.5)), 0.0);
                         Arc::new(
-                            Sphere::new(center, 0.2, Arc::new(Lambertian::new(albedo)))
+                            Sphere::new(center, 0.2, Arc::new(Lambertian::from(albedo)))
                                 .with_destination(destination),
                         )
                     }
@@ -52,7 +52,7 @@ fn main() {
         Arc::new(material_1),
     )));
 
-    let material_2 = Lambertian::new(Color::new(0.4, 0.2, 0.1));
+    let material_2 = Lambertian::from(Color::new(0.4, 0.2, 0.1));
     world.push(Arc::new(Sphere::new(
         Point3::new(-4.0, 1.0, 0.0),
         1.0,

@@ -10,6 +10,7 @@ pub mod hittable;
 pub mod material;
 pub mod point;
 pub mod ray;
+pub mod texture;
 pub mod utils;
 pub mod vec;
 
