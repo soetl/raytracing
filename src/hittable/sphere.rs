@@ -46,6 +46,7 @@ impl Sphere {
 }
 
 impl Hittable for Sphere {
+    #[inline]
     fn hit(&self, ray: &Ray, ray_t: Range<f32>) -> Option<HitRecord> {
         let current_center = self.center.at(ray.time());
         let oc = current_center - ray.origin;
@@ -69,18 +70,31 @@ impl Hittable for Sphere {
         }
 
         let point = ray.at(root);
+        let outward_normal = (point - current_center) / self.radius;
         let hit_rec = HitRecord::new(
             ray.direction,
             point,
-            (point - current_center) / self.radius,
+            outward_normal,
             root,
+            self.uv(&outward_normal),
             self.material.clone(),
         );
 
         Some(hit_rec)
     }
 
+    #[inline]
     fn aabb(&self) -> Aabb {
         self.aabb
+    }
+
+    #[inline]
+    fn uv(&self, point: &Vec3) -> (f32, f32) {
+        use std::f32::consts::PI;
+
+        let theta = (-point.y).acos();
+        let phi = (-point.z).atan2(point.x) + PI;
+
+        (phi / (2.0 * PI), theta / PI)
     }
 }

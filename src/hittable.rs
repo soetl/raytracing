@@ -4,9 +4,7 @@ pub mod sphere;
 
 use std::{ops::Range, sync::Arc};
 
-use aabb::Aabb;
-
-use crate::{material::Material, point::Point3, ray::Ray, vec::Vec3};
+use crate::{hittable::aabb::Aabb, material::Material, point::Point3, ray::Ray, vec::Vec3};
 
 #[derive(Debug, Clone)]
 pub enum HitType {
@@ -19,6 +17,8 @@ pub struct Hit {
     pub point: Point3,
     pub normal: Vec3,
     pub front_face: bool,
+    pub u: f32,
+    pub v: f32,
     pub material: Arc<dyn Material>,
 }
 
@@ -34,6 +34,7 @@ impl HitRecord {
         point: Point3,
         normal: Vec3,
         t: f32,
+        uv: (f32, f32),
         material: Arc<dyn Material>,
     ) -> HitRecord {
         let front_face = direction.dot(normal) < 0.0;
@@ -50,6 +51,8 @@ impl HitRecord {
                     normal,
                     front_face,
                     material,
+                    u: uv.0,
+                    v: uv.1,
                 },
             },
             t,
@@ -59,5 +62,10 @@ impl HitRecord {
 
 pub trait Hittable: Send + Sync {
     fn hit(&self, ray: &Ray, ray_t: Range<f32>) -> Option<HitRecord>;
-    fn aabb(&self) -> Aabb;
+    fn aabb(&self) -> Aabb {
+        Aabb::default()
+    }
+    fn uv(&self, point: &Point3) -> (f32, f32) {
+        (point.x, point.y)
+    }
 }
