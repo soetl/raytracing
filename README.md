@@ -7,7 +7,7 @@ Ray Tracing with Rust
 
 Run code:
 ```
-cargo r --release --example rt-the-next-week_4_6
+cargo r --release --example rt-the-next-week_5_7
 ```
 
 ---
@@ -37,6 +37,10 @@ cargo r --release --example rt-the-next-week_4_6
 ---
 ![](./docs/assets/rt-the-next-week_4.6.png)
 *Ray Tracing: The Next Week. Chapter 4.6*
+
+---
+![](./docs/assets/rt-the-next-week_5.7.png)
+*Ray Tracing: The Next Week. Chapter 5.7*
 
 [book1]:  https://raytracing.github.io/books/RayTracingInOneWeekend.html
 [book2]:  https://raytracing.github.io/books/RayTracingTheNextWeek.html

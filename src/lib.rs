@@ -17,7 +17,7 @@ pub mod prelude {
         math::{Hittable, Point3, Vec3, VecExt},
         primitives::Sphere,
         render,
-        texture::{CheckersTexture, ImageTexture, SolidColor},
+        texture::{CheckersTexture, ImageTexture, PerlinNoise, SolidColor},
     };
 }
 
