@@ -9,7 +9,7 @@ fn main() {
         .unwrap()
         .into_rgb8();
 
-    let earth_material = Arc::new(Lambertian::new(Arc::new(ImageTexture::new(image))));
+    let earth_material = Arc::new(Lambertian::from(ImageTexture::new(image)));
     world.push(Arc::new(Sphere::new(
         Point3::new(0.0, 0.0, 0.0),
         2.0,
