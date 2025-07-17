@@ -5,7 +5,6 @@ use ray_tracing::prelude::*;
 fn main() {
     let mut world: Vec<Arc<dyn Hittable>> = Vec::new();
 
-    // Cornell box materials
     let red = Arc::new(Lambertian::from(Color::new(0.65, 0.05, 0.05)));
     let white = Arc::new(Lambertian::from(Color::new(0.73, 0.73, 0.73)));
     let green = Arc::new(Lambertian::from(Color::new(0.12, 0.45, 0.15)));
