@@ -6,6 +6,7 @@ pub mod mesh;
 mod point;
 mod ray;
 pub mod texture;
+pub mod transform;
 pub mod utils;
 mod vec;
 
@@ -17,9 +18,10 @@ pub mod prelude {
         material::*,
         math::{Hittable, Point3, Vec3, VecExt},
         mesh::*,
-        primitive::*,
+        primitives::*,
         render,
         texture::*,
+        transform::*,
     };
 }
 
@@ -27,7 +29,7 @@ pub mod math {
     pub use crate::{hittable::*, point::*, ray::*, vec::*};
 }
 
-pub mod primitive {
+pub mod primitives {
     pub use crate::hittable::primitive::*;
 }
 
