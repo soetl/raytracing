@@ -3,7 +3,7 @@ mod bvh_node;
 mod quad;
 mod sphere;
 
-pub mod primitives {
+pub mod primitive {
     pub use crate::hittable::{quad::Quad, sphere::Sphere};
 }
 

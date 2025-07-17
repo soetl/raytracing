@@ -20,12 +20,14 @@ pub struct Camera {
     defocus_angle: f32,
     defocus_disk_u: Vec3,
     defocus_disk_v: Vec3,
+    background: Color<Linear>,
 }
 
 impl Camera {
     pub fn new(
         &CameraConfig {
             aspect_ratio,
+            background,
             image_width,
             samples_per_pixel,
             max_depth,
@@ -80,6 +82,7 @@ impl Camera {
             defocus_angle,
             defocus_disk_u,
             defocus_disk_v,
+            background,
         }
     }
 
@@ -128,9 +131,7 @@ impl Camera {
             return Color::from(attenuation.v * Self::ray_color(&scattered, world, depth - 1).v);
         }
 
-        let unit_direction = ray.direction().normalize();
-        let a = 0.5 * (unit_direction.y + 1.0);
-        Color::from(Vec3::lerp(Vec3::ONE, Vec3::new(0.5, 0.7, 1.0), a))
+        self.background
     }
 
     fn get_ray(&self, i: u32, j: u32) -> Ray {
@@ -161,6 +162,7 @@ impl Camera {
 
 pub struct CameraConfig {
     pub aspect_ratio: f32,
+    pub background: Color<Linear>,
     pub image_width: u32,
     pub samples_per_pixel: u32,
     pub max_depth: u32,
@@ -185,6 +187,7 @@ impl Default for CameraConfig {
             vup: Vec3::Y,
             defocus_angle: 0.0,
             focus_distance: 10.0,
+            background: Color::<Linear>::from(Vec3::new(0.70, 0.80, 1.00)),
         }
     }
 }
