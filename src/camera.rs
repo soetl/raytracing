@@ -95,7 +95,7 @@ impl Camera {
                 let color: Vec<Color<Linear>> = (0..self.samples_per_pixel)
                     .map(|_| {
                         let ray = self.get_ray(x, y);
-                        Self::ray_color(&ray, world, self.max_depth)
+                        self.ray_color(&ray, world, self.max_depth)
                     })
                     .filter(|color| {
                         color.v.x.is_finite() && color.v.y.is_finite() && color.v.z.is_finite()
@@ -115,7 +115,7 @@ impl Camera {
         output
     }
 
-    fn ray_color(ray: &Ray, world: &impl Hittable, depth: u32) -> Color<Linear> {
+    fn ray_color(&self, ray: &Ray, world: &impl Hittable, depth: u32) -> Color<Linear> {
         if depth == 0 {
             return Color::from(Vec3::ZERO);
         }
@@ -125,10 +125,13 @@ impl Camera {
                 HitType::Physical { hit } => hit,
                 _ => return Color::from(Vec3::ZERO),
             };
+            let emittance = hit.material.emit(hit.u, hit.v, &hit.point);
             let Some((scattered, attenuation)) = hit.material.scatter(ray, &hit) else {
-                return Color::from(Vec3::ZERO);
+                return emittance;
             };
-            return Color::from(attenuation.v * Self::ray_color(&scattered, world, depth - 1).v);
+            return Color::from(
+                emittance.v + attenuation.v * self.ray_color(&scattered, world, depth - 1).v,
+            );
         }
 
         self.background
