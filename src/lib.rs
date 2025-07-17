@@ -15,7 +15,7 @@ pub mod prelude {
         logical::*,
         material::*,
         math::{Hittable, Point3, Vec3, VecExt},
-        primitives::*,
+        primitive::*,
         render,
         texture::*,
     };
@@ -25,7 +25,7 @@ pub mod math {
     pub use crate::{hittable::*, point::*, ray::*, vec::*};
 }
 
-pub mod primitives {
+pub mod primitive {
     pub use crate::hittable::primitive::*;
 }
 
