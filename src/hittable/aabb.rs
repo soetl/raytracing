@@ -1,3 +1,5 @@
+use std::ops::{Add, AddAssign};
+
 use crate::math::{HitRecord, HitType, Hittable, Point3, Ray, Vec3};
 
 const AABB_MIN_EXTENT: f32 = 0.0001;
@@ -116,5 +118,22 @@ impl Hittable for Aabb {
 
     fn aabb(&self) -> Aabb {
         *self
+    }
+}
+
+impl Add<Vec3> for Aabb {
+    type Output = Aabb;
+
+    fn add(self, offset: Vec3) -> Self::Output {
+        Self {
+            center: self.center + offset,
+            half_extents: self.half_extents,
+        }
+    }
+}
+
+impl AddAssign<Vec3> for Aabb {
+    fn add_assign(&mut self, offset: Vec3) {
+        self.center += offset;
     }
 }
