@@ -15,7 +15,7 @@ pub mod prelude {
         logical::BvhNode,
         material::{Dielectric, Lambertian, Material, Metal},
         math::{Hittable, Point3, Vec3, VecExt},
-        primitives::Sphere,
+        primitives::{Quad, Sphere},
         render,
         texture::{CheckersTexture, ImageTexture, PerlinNoise, SolidColor},
     };
@@ -31,7 +31,7 @@ pub mod math {
 }
 
 pub mod primitives {
-    pub use crate::hittable::primitives::Sphere;
+    pub use crate::hittable::primitives::{Quad, Sphere};
 }
 
 pub mod logical {
