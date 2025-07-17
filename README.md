@@ -2,7 +2,7 @@ Ray Tracing with Rust
 ====================================================================================================
 
 | ![RT in One Weekend][cover1] | ![RT The Next Week][cover2] |
-|:----------------------------:|:---------------------------:|
+| :--------------------------: | :-------------------------: |
 |   [In One Weekend][book1]    |   [The Next Week][book2]    |
 
 Run code:
@@ -11,24 +11,8 @@ cargo r --release --example rt-the-next-week_6_6
 ```
 
 ---
-![](./docs/assets/rt-in-one-week-11.5.png)
-*Ray Tracing in One Weekend. Chapter 11.5*
-
----
 ![](./docs/assets/rt-in-one-week-12.2.png)
 *Ray Tracing in One Weekend. Chapter 12.2.2*
-
----
-![](./docs/assets/rt-in-one-week-13.2.png)
-*Ray Tracing in One Weekend. Chapter 13.2*
-
----
-![](./docs/assets/rt-in-one-week-14.1.png)
-*Ray Tracing in One Weekend. Chapter 14.1*
-
----
-![](./docs/assets/rt-the-next-week_3.10.png)
-*Ray Tracing: The Next Week. Chapter 3.10*
 
 ---
 ![](./docs/assets/rt-the-next-week_4.2.png)
