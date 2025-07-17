@@ -1,5 +1,7 @@
 use crate::math::{HitRecord, HitType, Hittable, Point3, Ray, Vec3};
 
+const AABB_MIN_EXTENT: f32 = 0.0001;
+
 #[derive(Debug, Clone, Copy)]
 pub struct Aabb {
     pub center: Vec3,
@@ -8,9 +10,14 @@ pub struct Aabb {
 
 impl Aabb {
     pub fn new(center: Vec3, half_extents: Vec3) -> Self {
+        let padded_extents = Vec3::new(
+            half_extents.x.max(AABB_MIN_EXTENT),
+            half_extents.y.max(AABB_MIN_EXTENT),
+            half_extents.z.max(AABB_MIN_EXTENT),
+        );
         Aabb {
             center,
-            half_extents,
+            half_extents: padded_extents,
         }
     }
 }
@@ -31,8 +38,16 @@ impl From<(Point3, Point3)> for Aabb {
 
         let center = (actual_min + actual_max) / 2.0;
         let half_extents = (actual_max - actual_min) / 2.0;
+        let padded_extents = Vec3::new(
+            half_extents.x.max(AABB_MIN_EXTENT),
+            half_extents.y.max(AABB_MIN_EXTENT),
+            half_extents.z.max(AABB_MIN_EXTENT),
+        );
 
-        Aabb::new(center, half_extents)
+        Aabb {
+            center,
+            half_extents: padded_extents,
+        }
     }
 }
 
