@@ -1,10 +1,12 @@
-use std::sync::Arc;
+use std::{path::Path, sync::Arc};
+
+use image::{ImageError, RgbImage};
 
 use crate::{
     color::{Color, Linear},
     material::Material,
     math::{Hit, Ray, Vec3, VecExt},
-    texture::{SolidColor, Texture},
+    texture::{CheckersTexture, ImageTexture, PerlinNoise, SolidColor, Texture},
 };
 
 #[derive(Clone, Debug)]
@@ -32,10 +34,60 @@ impl Material for Lambertian {
     }
 }
 
+impl From<SolidColor> for Lambertian {
+    fn from(color: SolidColor) -> Self {
+        Self {
+            texture: Arc::new(color),
+        }
+    }
+}
+
 impl From<Color<Linear>> for Lambertian {
     fn from(color: Color<Linear>) -> Self {
         Self {
             texture: Arc::new(SolidColor::new(color)),
+        }
+    }
+}
+
+impl From<CheckersTexture> for Lambertian {
+    fn from(texture: CheckersTexture) -> Self {
+        Self {
+            texture: Arc::new(texture),
+        }
+    }
+}
+
+impl From<ImageTexture> for Lambertian {
+    fn from(texture: ImageTexture) -> Self {
+        Self {
+            texture: Arc::new(texture),
+        }
+    }
+}
+
+impl From<RgbImage> for Lambertian {
+    fn from(image: RgbImage) -> Self {
+        Self {
+            texture: Arc::new(ImageTexture::new(image)),
+        }
+    }
+}
+
+impl TryFrom<&Path> for Lambertian {
+    type Error = ImageError;
+
+    fn try_from(path: &Path) -> Result<Self, Self::Error> {
+        Ok(Self {
+            texture: Arc::new(ImageTexture::load(path)?),
+        })
+    }
+}
+
+impl From<PerlinNoise> for Lambertian {
+    fn from(texture: PerlinNoise) -> Self {
+        Self {
+            texture: Arc::new(texture),
         }
     }
 }
