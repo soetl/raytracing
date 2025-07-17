@@ -3,9 +3,7 @@ mod color;
 mod image;
 mod perlin;
 
-pub use crate::texture::{
-    checkers::CheckersTexture, color::SolidColor, image::ImageTexture, perlin::PerlinNoise,
-};
+pub use {checkers::CheckersTexture, color::SolidColor, image::ImageTexture, perlin::PerlinNoise};
 
 use std::fmt::Debug;
 

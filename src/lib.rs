@@ -10,32 +10,27 @@ mod vec;
 
 pub mod prelude {
     pub use crate::{
-        camera::{Camera, CameraConfig},
-        color::{Color, Linear, Srgb},
-        logical::BvhNode,
-        material::{Dielectric, Lambertian, Material, Metal},
+        camera::*,
+        color::*,
+        logical::*,
+        material::*,
         math::{Hittable, Point3, Vec3, VecExt},
-        primitives::{Quad, Sphere},
+        primitives::*,
         render,
-        texture::{CheckersTexture, ImageTexture, PerlinNoise, SolidColor},
+        texture::*,
     };
 }
 
 pub mod math {
-    pub use crate::{
-        hittable::{Hit, HitRecord, HitType, Hittable},
-        point::Point3,
-        ray::Ray,
-        vec::{Vec3, VecExt},
-    };
+    pub use crate::{hittable::*, point::*, ray::*, vec::*};
 }
 
 pub mod primitives {
-    pub use crate::hittable::primitives::{Quad, Sphere};
+    pub use crate::hittable::primitive::*;
 }
 
 pub mod logical {
-    pub use crate::hittable::logical::{Aabb, BvhNode};
+    pub use crate::hittable::logical::*;
 }
 
 use std::path::PathBuf;
