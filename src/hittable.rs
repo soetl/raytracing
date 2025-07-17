@@ -1,9 +1,10 @@
 mod aabb;
 mod bvh_node;
+mod quad;
 mod sphere;
 
 pub mod primitives {
-    pub use crate::hittable::sphere::Sphere;
+    pub use crate::hittable::{quad::Quad, sphere::Sphere};
 }
 
 pub mod logical {
