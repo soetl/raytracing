@@ -5,7 +5,7 @@ use ray_tracing::prelude::*;
 fn main() {
     let mut world: Vec<Arc<dyn Hittable>> = Vec::new();
 
-    let perlin = Arc::new(Lambertian::new(Arc::new(PerlinNoise::new(4.0))));
+    let perlin = Arc::new(Lambertian::from(PerlinNoise::new(4.0)));
     world.push(Arc::new(Sphere::new(
         Point3::new(0.0, -1000.0, 0.0),
         1000.0,

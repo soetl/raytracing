@@ -5,10 +5,10 @@ use ray_tracing::prelude::*;
 fn main() {
     let mut world: Vec<Arc<dyn Hittable>> = Vec::new();
 
-    let checkers = Arc::new(Lambertian::new(Arc::new(CheckersTexture::new(
+    let checkers = Arc::new(Lambertian::from(CheckersTexture::from((
         0.32,
-        Arc::new(SolidColor::new(Color::new(0.1, 0.1, 0.1))),
-        Arc::new(SolidColor::new(Color::new(0.9, 0.9, 0.9))),
+        Color::new(0.1, 0.1, 0.1),
+        Color::new(0.9, 0.9, 0.9),
     ))));
     world.push(Arc::new(Sphere::new(
         Point3::new(0.0, -10.0, 0.0),
