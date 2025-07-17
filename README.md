@@ -23,8 +23,8 @@ cargo r --release --example rt-the-next-week_6_6
 *Ray Tracing: The Next Week. Chapter 4.6*
 
 ---
-![](./docs/assets/rt-the-next-week_5.7.png)
-*Ray Tracing: The Next Week. Chapter 5.7*
+![](./docs/assets/rt-the-next-week_7.3.png)
+*Ray Tracing: The Next Week. Chapter 7.3*
 
 ---
 ![](./docs/assets/rt-the-next-week_6.6.png)
