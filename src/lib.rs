@@ -2,6 +2,7 @@ pub mod camera;
 pub mod color;
 mod hittable;
 pub mod material;
+pub mod mesh;
 mod point;
 mod ray;
 pub mod texture;
@@ -15,6 +16,7 @@ pub mod prelude {
         logical::*,
         material::*,
         math::{Hittable, Point3, Vec3, VecExt},
+        mesh::*,
         primitive::*,
         render,
         texture::*,
